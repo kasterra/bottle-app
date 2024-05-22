@@ -1,0 +1,13 @@
+* {
+  box-sizing: border-box;
+  font-family: "OpenSans", sans-serif;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+}
+
+button {
+  cursor: pointer;
+}
