@@ -13,7 +13,46 @@
 .cards-container {
   display: flex;
   padding: 10px 120px;
-  justify-content: space-between;
+  justify-content: space-evenly;
   height: 100%;
-  width: 80%;
+  width: 90%;
+}
+
+.card {
+  width: 540px;
+  height: 100%;
+  padding: 40px 80px;
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+
+.card-title {
+  display: flex;
+  gap: 10px;
+  font-size: 14px;
+  align-items: center;
+}
+
+.letters {
+  display: flex;
+  flex-direction: column;
+  width: 360px;
+}
+
+.letter-content {
+  width: 360px;
+  border-radius: 4px;
+  border: 1.4px solid #000;
+  min-height: 500px;
+  max-height: 80%;
+  overflow-y: auto;
+}
+
+.letter-by {
+  align-self: flex-end;
+}
+
+.btn-container {
+  align-self: flex-end;
 }
