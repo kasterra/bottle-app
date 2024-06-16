@@ -1,4 +1,5 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { AuthProvider } from "./AuthContext.tsx";
 import Home from "./pages/Home";
 import Detail from "./pages/Detail";
 
@@ -13,7 +14,11 @@ function App() {
       element: <Detail />,
     },
   ]);
-  return <RouterProvider router={router} />;
+  return (
+    <AuthProvider>
+      <RouterProvider router={router} />
+    </AuthProvider>
+  );
 }
 
 export default App;
