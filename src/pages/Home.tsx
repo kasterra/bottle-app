@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import styles from "./home.module.css";
 import inputStyles from "../components/input.module.css";
 import Card from "../components/Card";
@@ -6,10 +6,43 @@ import TextInput from "../components/TextInput";
 import PWInput from "../components/PWInput";
 import heroImage from "../assets/bottle-hero.jpg";
 import { useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
+import { login, register } from "../API";
 
 const Home = () => {
   const [mode, setMode] = useState<"login" | "signup">("login");
   const navigate = useNavigate();
+
+  const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const formData = new FormData(e.currentTarget);
+    const id = formData.get("id") as string;
+    const pw = formData.get("pw") as string;
+    const email = formData.get("email") as string;
+    const pw1 = formData.get("pw1") as string;
+    const pw2 = formData.get("pw2") as string;
+    if (mode === "login") {
+      await toast.promise(login(id, pw), {
+        loading: "로그인 진행중...",
+        success: () => {
+          navigate("/detail");
+          return "로그인 성공!";
+        },
+        error: (err) => `Error: ${err.message} - ${err.responseMessage}`,
+      });
+    }
+
+    if (mode === "signup") {
+      await toast.promise(register(id, pw1, pw2, email), {
+        loading: "회원가입 진행중...",
+        success: () => {
+          setMode("login");
+          return "회원가입 성공! 이메일 인증 완료 후 로그인 가능합니다";
+        },
+        error: (err) => `Error: ${err.message} - ${err.responseMessage}`,
+      });
+    }
+  };
   return (
     <div className={styles.container}>
       <div className={styles.cell}>
@@ -37,13 +70,7 @@ const Home = () => {
               </div>
             </div>
 
-            <form
-              className={styles["form-area"]}
-              onSubmit={(e) => {
-                e.preventDefault();
-                navigate("/detail");
-              }}
-            >
+            <form className={styles["form-area"]} onSubmit={onSubmit}>
               {mode === "login" ? (
                 <>
                   <TextInput title="ID" name="id" />
@@ -51,6 +78,11 @@ const Home = () => {
                 </>
               ) : (
                 <>
+                  <TextInput
+                    title="email"
+                    name="email"
+                    placeholder="서비스 이용을 위해 email 인증이 필요해요"
+                  />
                   <TextInput
                     title="ID"
                     name="id"

@@ -9,6 +9,24 @@ import {
 
 const API_URL = import.meta.env.VITE_API_URL;
 
+export async function verifyEmail(verifyId: string) {
+  const response = await fetch(`${API_URL}/verify/email?id=${verifyId}`, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+
+  const json = await response.json();
+
+  switch (response.status) {
+    case 200:
+      return json;
+    case 404:
+      throw new NotFoundError(json.message);
+  }
+}
+
 export async function reAuth(access_token: string, refresh_token: string) {
   const response = await fetch(`${API_URL}/reissue`, {
     method: "POST",
