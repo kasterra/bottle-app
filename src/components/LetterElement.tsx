@@ -6,11 +6,12 @@ interface Props {
   isOpened: boolean;
   title: string;
   time: string;
+  onClick?: () => void;
 }
 
-const LetterElement = ({ isOpened, title, time }: Props) => {
+const LetterElement = ({ isOpened, title, time, onClick }: Props) => {
   return (
-    <div className={styles.container}>
+    <div className={styles.container} onClick={onClick}>
       <div className={styles["image-cell"]}>
         <img src={isOpened ? openedLetter : closedLetter} alt="letter" />
       </div>

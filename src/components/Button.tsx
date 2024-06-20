@@ -1,5 +1,5 @@
-import styles from "./button.module.css";
 
+import styles from "./button.module.css";
 interface Props {
   imgsrc?: string;
   title: string;

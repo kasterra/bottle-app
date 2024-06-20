@@ -77,11 +77,9 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
       sessionStorage.getItem("name") !== null &&
       sessionStorage.getItem("access_token") !== null &&
       sessionStorage.getItem("refresh_token") !== null &&
-      sessionStorage.getItem("last_bottle_creation") !== null &&
       sessionStorage.getItem("name")!.length !== 0 &&
       sessionStorage.getItem("access_token")!.length !== 0 &&
-      sessionStorage.getItem("refresh_token")!.length !== 0 &&
-      sessionStorage.getItem("last_bottle_creation")!.length !== 0
+      sessionStorage.getItem("refresh_token")!.length !== 0
     ) {
       dispatch({
         type: "UPDATE_DATA",
@@ -96,15 +94,14 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
     if (
       state.access_token.length !== 0 &&
       state.name.length !== 0 &&
-      state.refresh_token.length !== 0 &&
-      state.last_bottle_creation
+      state.refresh_token.length !== 0
     ) {
       sessionStorage.setItem("name", state.name);
       sessionStorage.setItem("access_token", state.access_token);
       sessionStorage.setItem("refresh_token", state.refresh_token);
       sessionStorage.setItem(
         "last_bottle_creation",
-        state.last_bottle_creation
+        state.last_bottle_creation || ""
       );
     }
   }, [

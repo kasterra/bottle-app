@@ -8,10 +8,12 @@ import heroImage from "../assets/bottle-hero.jpg";
 import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 import { login, register } from "../API";
+import { useAuthDispatch } from "../AuthContext";
 
 const Home = () => {
   const [mode, setMode] = useState<"login" | "signup">("login");
   const navigate = useNavigate();
+  const authDispatch = useAuthDispatch();
 
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -24,7 +26,17 @@ const Home = () => {
     if (mode === "login") {
       await toast.promise(login(id, pw), {
         loading: "로그인 진행중...",
-        success: () => {
+        success: (response) => {
+          sessionStorage.setItem("access_token", response.access_token);
+          authDispatch({
+            type: "UPDATE_DATA",
+            payload: {
+              name: id,
+              access_token: response.access_token,
+              refresh_token: response.refresh_token,
+              last_bottle_creation: response.last_bottle_creation,
+            },
+          });
           navigate("/detail");
           return "로그인 성공!";
         },
