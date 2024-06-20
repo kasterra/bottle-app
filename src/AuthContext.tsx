@@ -10,7 +10,7 @@ type AuthType = {
   name: string;
   access_token: string;
   refresh_token: string;
-  last_bottle_creation: string | null;
+  last_bottle_creation: Date;
 };
 
 const AuthContext = createContext<AuthType | undefined>(undefined);
@@ -22,10 +22,10 @@ type AuthActionType =
         name: string;
         access_token: string;
         refresh_token: string;
-        last_bottle_creation: string | null;
+        last_bottle_creation: Date;
       };
     }
-  | { type: "UPDATE_LAST_BOTTLE_CREATION"; payload: string }
+  | { type: "UPDATE_LAST_BOTTLE_CREATION"; payload: Date }
   | { type: "DELETE_DATA" };
 
 const AuthDispatchContext = createContext<
@@ -45,7 +45,7 @@ const AuthReducer = (state: AuthType, action: AuthActionType): AuthType => {
         name: "",
         access_token: "",
         refresh_token: "",
-        last_bottle_creation: null,
+        last_bottle_creation: new Date(0),
       };
     case "UPDATE_LAST_BOTTLE_CREATION":
       return {
@@ -68,7 +68,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
     name: "",
     access_token: "",
     refresh_token: "",
-    last_bottle_creation: null,
+    last_bottle_creation: new Date(0),
   });
 
   useEffect(() => {
@@ -79,7 +79,8 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
       sessionStorage.getItem("refresh_token") !== null &&
       sessionStorage.getItem("name")!.length !== 0 &&
       sessionStorage.getItem("access_token")!.length !== 0 &&
-      sessionStorage.getItem("refresh_token")!.length !== 0
+      sessionStorage.getItem("refresh_token")!.length !== 0 &&
+      sessionStorage.getItem("last_bottle_creation") !== null
     ) {
       dispatch({
         type: "UPDATE_DATA",
@@ -87,21 +88,24 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
           name: sessionStorage.getItem("name")!,
           access_token: sessionStorage.getItem("access_token")!,
           refresh_token: sessionStorage.getItem("refresh_token")!,
-          last_bottle_creation: sessionStorage.getItem("last_bottle_creation"),
+          last_bottle_creation: new Date(
+            sessionStorage.getItem("last_bottle_creation")!
+          ),
         },
       });
     }
     if (
       state.access_token.length !== 0 &&
       state.name.length !== 0 &&
-      state.refresh_token.length !== 0
+      state.refresh_token.length !== 0 &&
+      state.last_bottle_creation
     ) {
       sessionStorage.setItem("name", state.name);
       sessionStorage.setItem("access_token", state.access_token);
       sessionStorage.setItem("refresh_token", state.refresh_token);
       sessionStorage.setItem(
         "last_bottle_creation",
-        state.last_bottle_creation || ""
+        state.last_bottle_creation.toISOString() || ""
       );
     }
   }, [
