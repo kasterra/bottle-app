@@ -38,7 +38,7 @@ const Detail = () => {
         setLetterList(
           response.bottles.map((bottle: any) => ({
             ...bottle,
-            createdDate: parseDateString(bottle.createdDate),
+            createdAt: parseDateString(bottle.createdAt),
           }))
         );
         setIsListLoading(false);
@@ -74,7 +74,7 @@ const Detail = () => {
                     key={letter.id}
                     isOpened={true}
                     title={letter.title}
-                    time={letter.createdDate.toLocaleString("ko-KR", {
+                    time={letter.createdAt.toLocaleString("ko-KR", {
                       timeZone: "UTC",
                     })}
                     onClick={() => setLetter(letter)}
@@ -97,7 +97,7 @@ const Detail = () => {
               <div className={styles["letter-content"]}>{letter.content}</div>
               <span className={styles["letter-by"]}>
                 보낸 시간 :
-                {letter.createdDate.toLocaleString("ko-KR", {
+                {letter.createdAt.toLocaleString("ko-KR", {
                   timeZone: "UTC",
                 })}
               </span>

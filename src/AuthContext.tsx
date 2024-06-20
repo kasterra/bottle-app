@@ -38,6 +38,7 @@ const AuthReducer = (state: AuthType, action: AuthActionType): AuthType => {
       return {
         ...state,
         ...action.payload,
+        last_bottle_creation: state.last_bottle_creation || new Date(0),
       };
     case "DELETE_DATA":
       sessionStorage.clear();
