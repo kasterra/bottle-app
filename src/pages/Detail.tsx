@@ -72,6 +72,7 @@ const Detail = () => {
                 letterList.map((letter) => (
                   <LetterElement
                     key={letter.id}
+                    id={letter.id + ""}
                     isOpened={true}
                     title={letter.title}
                     time={letter.createdAt.toLocaleString("ko-KR", {
