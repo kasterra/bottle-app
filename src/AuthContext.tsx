@@ -74,6 +74,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
 
   useEffect(() => {
     if (
+      state.access_token &&
       state.access_token.length === 0 &&
       sessionStorage.getItem("name") !== null &&
       sessionStorage.getItem("access_token") !== null &&
