@@ -5,6 +5,7 @@ import Detail from "./pages/Detail";
 import Verify from "./pages/Verify.tsx";
 import Post from "./pages/Post.tsx";
 import ProctedRoute from "./pages/Authlayout.tsx";
+import Share from "./pages/Share.tsx";
 
 function App() {
   const router = createBrowserRouter([
@@ -29,6 +30,14 @@ function App() {
       element: (
         <ProctedRoute>
           <Post />
+        </ProctedRoute>
+      ),
+    },
+    {
+      path: "/share",
+      element: (
+        <ProctedRoute>
+          <Share />
         </ProctedRoute>
       ),
     },

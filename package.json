@@ -10,6 +10,8 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "dom-to-image": "^2.6.0",
+    "file-saver": "^2.0.5",
     "rc-pagination": "^4.1.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
@@ -17,6 +19,8 @@
     "react-router-dom": "^6.23.1"
   },
   "devDependencies": {
+    "@types/dom-to-image": "^2.6.7",
+    "@types/file-saver": "^2.0.7",
     "@types/react": "^18.2.66",
     "@types/react-dom": "^18.2.22",
     "@typescript-eslint/eslint-plugin": "^7.2.0",

@@ -7,7 +7,7 @@ import { useAuth } from "../../AuthContext";
 const menuElements = [
   { name: "받은 편지 보기", to: "/detail" },
   { name: "편지 쓰러가기", to: "/post" },
-  { name: "편지 자랑하기", to: "/admin/research" },
+  { name: "편지 자랑하기", to: "/share" },
 ];
 
 const Header = () => {
